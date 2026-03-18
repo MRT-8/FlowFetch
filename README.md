@@ -31,6 +31,14 @@
 
 ![FlowFetch terminal preview](assets/flowfetch-terminal.svg)
 
+## Sanitized Demo
+
+<p align="center">
+  <img src="assets/flowfetch-demo.gif" alt="Sanitized FlowFetch terminal demo showing a fictional download and extraction session" width="960">
+</p>
+
+This animation is generated from a scripted scene with fictional URLs, filenames, and local paths only. It is intentionally not a screen recording from a real machine.
+
 ## Why FlowFetch
 
 FlowFetch is built for the common "paste a file URL and get the result locally" workflow, without turning a simple download into a setup project.
@@ -255,11 +263,13 @@ sudo pacman -S curl wget unzip tar gzip p7zip
 - `uv.lock`: locked runtime dependency set for the `uv` workflow
 - `requirements.txt`: lightweight `pip` dependency list
 - `assets/flowfetch-terminal.svg`: terminal-style preview image used in the repository and release notes
+- `assets/flowfetch-demo.gif`: sanitized animated terminal demo for the GitHub README
 - `flowfetch.spec`: PyInstaller spec for the Linux single-file build
 - `release/README.txt`: short instructions bundled with the binary package
 - `release/v0.1.0.md`: notes for the first public GitHub Release
 - `README.md`: English project documentation
 - `README.zh-CN.md`: Simplified Chinese project documentation
+- `scripts/generate_demo_gif.py`: script that regenerates the sanitized demo GIF
 
 ## License
 

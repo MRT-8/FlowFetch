@@ -41,6 +41,9 @@ Issues = "https://github.com/MRT-8/FlowFetch/issues"
 flowfetch = "downloader:main"
 
 [project.optional-dependencies]
+media = [
+  "pillow>=11,<12",
+]
 release = [
   "pyinstaller>=6,<7",
 ]
