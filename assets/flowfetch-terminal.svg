@@ -1,0 +1,48 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">FlowFetch terminal preview</title>
+  <desc id="desc">A stylized terminal preview showing FlowFetch downloading and extracting an archive.</desc>
+  <rect width="1200" height="760" rx="32" fill="#0B1220"/>
+  <rect x="28" y="28" width="1144" height="704" rx="24" fill="#111827"/>
+  <rect x="28" y="28" width="1144" height="58" rx="24" fill="#1F2937"/>
+  <circle cx="74" cy="57" r="10" fill="#F87171"/>
+  <circle cx="106" cy="57" r="10" fill="#FBBF24"/>
+  <circle cx="138" cy="57" r="10" fill="#34D399"/>
+  <text x="600" y="64" text-anchor="middle" fill="#E5E7EB" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">flowfetch demo session</text>
+
+  <text x="70" y="138" fill="#60A5FA" font-size="26" font-family="SFMono-Regular, Consolas, Monaco, monospace">$</text>
+  <text x="98" y="138" fill="#F9FAFB" font-size="26" font-family="SFMono-Regular, Consolas, Monaco, monospace">./flowfetch https://downloads.example.com/demo.tar.gz</text>
+
+  <text x="70" y="188" fill="#34D399" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">[info]</text>
+  <text x="164" y="188" fill="#D1D5DB" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">Inspecting remote metadata...</text>
+
+  <text x="70" y="230" fill="#9CA3AF" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">Name:</text>
+  <text x="170" y="230" fill="#F9FAFB" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">demo.tar.gz</text>
+  <text x="70" y="266" fill="#9CA3AF" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">Size:</text>
+  <text x="170" y="266" fill="#F9FAFB" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">182.4 MB</text>
+  <text x="70" y="302" fill="#9CA3AF" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">Target:</text>
+  <text x="170" y="302" fill="#F9FAFB" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">./demo.tar.gz</text>
+  <text x="70" y="338" fill="#9CA3AF" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">Downloader:</text>
+  <text x="220" y="338" fill="#F9FAFB" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">httpx</text>
+
+  <rect x="70" y="382" width="900" height="26" rx="13" fill="#1F2937"/>
+  <rect x="70" y="382" width="900" height="26" rx="13" fill="#22C55E"/>
+  <text x="995" y="401" fill="#D1D5DB" font-size="20" font-family="SFMono-Regular, Consolas, Monaco, monospace">100%</text>
+
+  <text x="70" y="450" fill="#9CA3AF" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">Speed:</text>
+  <text x="170" y="450" fill="#F9FAFB" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">28.6 MB/s</text>
+  <text x="350" y="450" fill="#9CA3AF" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">Elapsed:</text>
+  <text x="470" y="450" fill="#F9FAFB" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">00:06</text>
+  <text x="610" y="450" fill="#9CA3AF" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">Saved:</text>
+  <text x="700" y="450" fill="#F9FAFB" font-size="21" font-family="SFMono-Regular, Consolas, Monaco, monospace">./demo.tar.gz</text>
+
+  <text x="70" y="508" fill="#34D399" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">[ok]</text>
+  <text x="140" y="508" fill="#D1D5DB" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">Archive detected: tar.gz</text>
+  <text x="70" y="548" fill="#34D399" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">[ok]</text>
+  <text x="140" y="548" fill="#D1D5DB" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">Extracting with Python safety checks...</text>
+  <text x="70" y="588" fill="#34D399" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">[done]</text>
+  <text x="168" y="588" fill="#D1D5DB" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">Ready in ./demo/</text>
+
+  <rect x="70" y="632" width="1060" height="62" rx="16" fill="#0F172A"/>
+  <text x="100" y="670" fill="#93C5FD" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">Tip:</text>
+  <text x="160" y="670" fill="#E5E7EB" font-size="22" font-family="SFMono-Regular, Consolas, Monaco, monospace">download the Linux release, extract it, and run ./flowfetch --help</text>
+</svg>

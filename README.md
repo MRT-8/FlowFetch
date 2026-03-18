@@ -27,6 +27,10 @@
 > [!TIP]
 > End users should start with the GitHub Release package. Download `flowfetch-linux-x86_64.tar.gz`, extract it, and run `./flowfetch` without installing Python or running `pip install`.
 
+## Preview
+
+![FlowFetch terminal preview](assets/flowfetch-terminal.svg)
+
 ## Why FlowFetch
 
 FlowFetch is built for the common "paste a file URL and get the result locally" workflow, without turning a simple download into a setup project.
@@ -250,6 +254,7 @@ sudo pacman -S curl wget unzip tar gzip p7zip
 - `pyproject.toml`: project metadata and `flowfetch` console entrypoint
 - `uv.lock`: locked runtime dependency set for the `uv` workflow
 - `requirements.txt`: lightweight `pip` dependency list
+- `assets/flowfetch-terminal.svg`: terminal-style preview image used in the repository and release notes
 - `flowfetch.spec`: PyInstaller spec for the Linux single-file build
 - `release/README.txt`: short instructions bundled with the binary package
 - `release/v0.1.0.md`: notes for the first public GitHub Release

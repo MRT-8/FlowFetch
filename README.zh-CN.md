@@ -27,6 +27,10 @@
 > [!TIP]
 > 如果你只是想直接使用 FlowFetch，优先下载 GitHub Releases 里的 `flowfetch-linux-x86_64.tar.gz`。解压后运行 `./flowfetch` 即可，不需要安装 Python，也不需要执行 `pip install`。
 
+## 终端效果预览
+
+![FlowFetch 终端效果预览](assets/flowfetch-terminal.svg)
+
 ## 为什么用 FlowFetch
 
 FlowFetch 面向的是很常见的这类需求：给一个文件直链，尽量少折腾环境，尽快把文件安全地下载到本地。
@@ -250,6 +254,7 @@ sudo pacman -S curl wget unzip tar gzip p7zip
 - `pyproject.toml`：项目元数据和 `flowfetch` 命令入口
 - `uv.lock`：`uv` 工作流使用的锁文件
 - `requirements.txt`：面向 `pip` 的简洁依赖列表
+- `assets/flowfetch-terminal.svg`：仓库首页和 Release 说明使用的终端效果图
 - `flowfetch.spec`：Linux 单文件构建的 PyInstaller 配置
 - `release/README.txt`：打包后二进制附带的简短使用说明
 - `release/v0.1.0.md`：首个公开 GitHub Release 的说明
