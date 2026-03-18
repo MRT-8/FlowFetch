@@ -57,19 +57,26 @@ FlowFetch 适合这类常见场景：
 
 - Linux
 - Python 3.9+
-- Python 依赖：
-  - `httpx`
-  - `rich`
+- 推荐使用 `uv`，也支持使用 `pip`
 
-使用 `pip` 安装依赖：
+推荐用 `uv` 初始化：
+
+```bash
+uv sync
+uv run flowfetch --help
+```
+
+`uv` 方式示例：
+
+```bash
+uv run flowfetch https://example.com/demo.zip
+uv run downloader.py --help
+```
+
+如果你更习惯 `pip`：
 
 ```bash
 pip install -r requirements.txt
-```
-
-直接运行：
-
-```bash
 python downloader.py --help
 ```
 
@@ -77,6 +84,7 @@ python downloader.py --help
 
 - 开发过程中使用的 `.venv` 不会随仓库一起发布，也不应该提交到 GitHub。
 - 克隆仓库后的用户应在本地自行安装依赖，而不是依赖一个已打包的虚拟环境。
+- 执行 `uv sync` 后，项目会暴露一个可直接使用的 `flowfetch` 命令入口。
 
 ## 可选系统工具
 
@@ -116,37 +124,37 @@ sudo pacman -S curl wget unzip tar gzip p7zip
 交互模式：
 
 ```bash
-python downloader.py
+uv run flowfetch
 ```
 
 直接下载：
 
 ```bash
-python downloader.py https://example.com/demo.zip
+uv run flowfetch https://example.com/demo.zip
 ```
 
 指定目录并自动解压：
 
 ```bash
-python downloader.py --output-dir ./downloads --extract https://example.com/demo.tar.gz
+uv run flowfetch --output-dir ./downloads --extract https://example.com/demo.tar.gz
 ```
 
 强制使用 Python 下载器：
 
 ```bash
-python downloader.py --downloader httpx https://example.com/file.bin
+uv run flowfetch --downloader httpx https://example.com/file.bin
 ```
 
 强制使用系统解压器：
 
 ```bash
-python downloader.py --extractor system --extract https://example.com/demo.7z
+uv run flowfetch --extractor system --extract https://example.com/demo.7z
 ```
 
 ## 常用参数
 
 ```bash
-python downloader.py [options] [url]
+uv run flowfetch [options] [url]
 ```
 
 - `-o, --output-dir`：指定下载目录
@@ -214,6 +222,8 @@ chmod +x flowfetch
 ## 仓库结构
 
 - `downloader.py`：当前 CLI 入口和主要实现
+- `pyproject.toml`：项目元数据和 `flowfetch` 命令入口
+- `uv.lock`：`uv` 工作流使用的锁文件
 - `requirements.txt`：面向 `pip` 的简洁依赖列表
 - `README.md`：英文主文档
 - `README.zh-CN.md`：简体中文文档

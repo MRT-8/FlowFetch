@@ -57,19 +57,26 @@ Requirements:
 
 - Linux
 - Python 3.9+
-- Python dependencies:
-  - `httpx`
-  - `rich`
+- `uv` for the preferred workflow, or `pip` as a fallback
 
-Install with `pip`:
+Preferred setup with `uv`:
+
+```bash
+uv sync
+uv run flowfetch --help
+```
+
+Example usage with `uv`:
+
+```bash
+uv run flowfetch https://example.com/demo.zip
+uv run downloader.py --help
+```
+
+Alternative setup with `pip`:
 
 ```bash
 pip install -r requirements.txt
-```
-
-Run directly:
-
-```bash
 python downloader.py --help
 ```
 
@@ -77,6 +84,7 @@ Important notes:
 
 - The local `.venv` used during development is not part of the repository and is not meant to be distributed.
 - Users cloning the repository should install dependencies locally instead of reusing a checked-in virtual environment.
+- After `uv sync`, the project exposes a `flowfetch` CLI command through the project entry point.
 
 ## Optional System Tools
 
@@ -116,37 +124,37 @@ sudo pacman -S curl wget unzip tar gzip p7zip
 Interactive mode:
 
 ```bash
-python downloader.py
+uv run flowfetch
 ```
 
 Download a file directly:
 
 ```bash
-python downloader.py https://example.com/demo.zip
+uv run flowfetch https://example.com/demo.zip
 ```
 
 Download to a custom directory and extract automatically:
 
 ```bash
-python downloader.py --output-dir ./downloads --extract https://example.com/demo.tar.gz
+uv run flowfetch --output-dir ./downloads --extract https://example.com/demo.tar.gz
 ```
 
 Force the Python downloader:
 
 ```bash
-python downloader.py --downloader httpx https://example.com/file.bin
+uv run flowfetch --downloader httpx https://example.com/file.bin
 ```
 
 Force the system extractor:
 
 ```bash
-python downloader.py --extractor system --extract https://example.com/demo.7z
+uv run flowfetch --extractor system --extract https://example.com/demo.7z
 ```
 
 ## Key CLI Options
 
 ```bash
-python downloader.py [options] [url]
+uv run flowfetch [options] [url]
 ```
 
 - `-o, --output-dir`: target download directory
@@ -214,6 +222,8 @@ That portable release is meant for users who want a more "download and run" expe
 ## Repository Layout
 
 - `downloader.py`: current CLI entrypoint and main implementation
+- `pyproject.toml`: project metadata and `flowfetch` console entrypoint
+- `uv.lock`: locked runtime dependency set for the `uv` workflow
 - `requirements.txt`: lightweight `pip` dependency list
 - `README.md`: English project documentation
 - `README.zh-CN.md`: Simplified Chinese project documentation
