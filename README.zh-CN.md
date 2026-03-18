@@ -219,12 +219,17 @@ chmod +x flowfetch
 
 这个发行版适合希望“下载即运行”的用户，不需要提前安装 Python 依赖，也不需要执行 `pip install`。
 
+首个公开版本的详细发布说明见：
+
+- [`release/v0.1.0.md`](release/v0.1.0.md)
+
 ## 仓库结构
 
 - `downloader.py`：当前 CLI 入口和主要实现
 - `pyproject.toml`：项目元数据和 `flowfetch` 命令入口
 - `uv.lock`：`uv` 工作流使用的锁文件
 - `requirements.txt`：面向 `pip` 的简洁依赖列表
+- `release/v0.1.0.md`：首个公开 GitHub Release 的说明
 - `README.md`：英文主文档
 - `README.zh-CN.md`：简体中文文档
 

@@ -219,12 +219,17 @@ chmod +x flowfetch
 
 This Release binary is intended for users who want a direct "download and run" path without installing Python dependencies or running `pip install`.
 
+Detailed release notes for the first public build:
+
+- [`release/v0.1.0.md`](release/v0.1.0.md)
+
 ## Repository Layout
 
 - `downloader.py`: current CLI entrypoint and main implementation
 - `pyproject.toml`: project metadata and `flowfetch` console entrypoint
 - `uv.lock`: locked runtime dependency set for the `uv` workflow
 - `requirements.txt`: lightweight `pip` dependency list
+- `release/v0.1.0.md`: notes for the first public GitHub Release
 - `README.md`: English project documentation
 - `README.zh-CN.md`: Simplified Chinese project documentation
 
