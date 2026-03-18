@@ -650,7 +650,7 @@ def ensure_output_dir(path: Path) -> Path:
         raise AppError(
             ExitCode.PERMISSION_DENIED,
             "RESOLVE_PATH",
-            f"无法创建输出目录: {path}",
+            f"无法创建输出目录: {display_path(path)}",
             suggestion="请检查目录权限或改用可写目录",
             detail=str(exc),
         ) from exc
@@ -927,7 +927,7 @@ def download_with_httpx(
         raise AppError(
             ExitCode.DOWNLOAD_FAILED,
             "DOWNLOAD",
-            f"下载失败: {exc}",
+            "下载失败: 网络请求发生错误",
             suggestion="请检查网络连接和目标服务器状态",
             detail=str(exc),
         ) from exc
@@ -935,7 +935,7 @@ def download_with_httpx(
         raise AppError(
             ExitCode.PERMISSION_DENIED,
             "DOWNLOAD",
-            f"下载失败: 无法写入文件 {part_path}",
+            f"下载失败: 无法写入文件 {display_path(part_path)}",
             suggestion="请检查目录权限或更换输出目录",
             detail=str(exc),
         ) from exc
@@ -943,7 +943,7 @@ def download_with_httpx(
         raise AppError(
             ExitCode.DOWNLOAD_FAILED,
             "DOWNLOAD",
-            f"下载失败: 写文件时发生错误 ({exc})",
+            "下载失败: 写文件时发生错误",
             suggestion="请检查磁盘空间和目录权限",
             detail=str(exc),
         ) from exc
@@ -1006,7 +1006,7 @@ def finalize_download(part_path: Path, output_path: Path, expected_size: int | N
         raise AppError(
             ExitCode.PERMISSION_DENIED,
             "VERIFY_DOWNLOAD",
-            f"无法移动下载文件到最终位置: {output_path}",
+            f"无法移动下载文件到最终位置: {display_path(output_path)}",
             suggestion="请检查目录权限",
             detail=str(exc),
         ) from exc
@@ -1014,7 +1014,7 @@ def finalize_download(part_path: Path, output_path: Path, expected_size: int | N
         raise AppError(
             ExitCode.FILE_VALIDATION_FAILED,
             "VERIFY_DOWNLOAD",
-            f"无法完成下载文件重命名: {exc}",
+            "无法完成下载文件重命名",
             suggestion="请检查磁盘空间和目录权限",
             detail=str(exc),
         ) from exc
@@ -1329,7 +1329,7 @@ def extract_with_python(file_path: Path, archive_kind: str, target_path: Path) -
         raise AppError(
             ExitCode.EXTRACT_FAILED,
             "EXTRACT",
-            f"解压失败: {exc}",
+            "解压失败: 无法读取或写入压缩包内容",
             suggestion="请检查压缩包是否损坏或重试下载",
             detail=str(exc),
         ) from exc
@@ -1362,7 +1362,8 @@ def validate_7z_members(command: str, file_path: Path, target_dir: Path) -> None
         raise AppError(
             ExitCode.EXTRACT_FAILED,
             "EXTRACT",
-            f"无法读取 7z 文件列表: {result.stderr.strip() or result.stdout.strip()}",
+            "无法读取 7z 文件列表",
+            detail=result.stderr.strip() or result.stdout.strip() or None,
         )
 
     in_entries = False
@@ -1455,8 +1456,9 @@ def extract_with_system_tool(file_path: Path, archive_kind: str, target_path: Pa
         raise AppError(
             ExitCode.EXTRACT_FAILED,
             "EXTRACT",
-            f"系统解压失败: {message}",
+            "系统解压失败",
             suggestion="请检查压缩包是否损坏，或尝试改用 Python 解压",
+            detail=message,
         )
     return target_path
 
@@ -1577,8 +1579,10 @@ def main() -> int:
             print_info(f"详细信息: {exc.detail}")
         return int(exc.code)
     except Exception as exc:  # pragma: no cover
-        print_error(f"发生未预期错误: {exc}")
+        print_error("发生未预期错误，请使用 --verbose 查看详细信息")
         print_info("当前阶段: UNKNOWN")
+        if "--verbose" in sys.argv or "-v" in sys.argv:
+            print_info(f"详细信息: {exc}")
         return int(ExitCode.UNKNOWN_ERROR)
 
 
