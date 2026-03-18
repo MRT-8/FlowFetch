@@ -34,7 +34,7 @@
 ## Sanitized Demo
 
 <p align="center">
-  <img src="assets/flowfetch-demo.gif" alt="Sanitized FlowFetch terminal demo showing a fictional download and extraction session" width="960">
+  <img src="assets/flowfetch-demo.gif" alt="Sanitized FlowFetch terminal demo showing a fictional download and extraction session" width="840">
 </p>
 
 This animation is generated from a scripted scene with fictional URLs, filenames, and local paths only. It is intentionally not a screen recording from a real machine.
@@ -264,12 +264,14 @@ sudo pacman -S curl wget unzip tar gzip p7zip
 - `requirements.txt`: lightweight `pip` dependency list
 - `assets/flowfetch-terminal.svg`: terminal-style preview image used in the repository and release notes
 - `assets/flowfetch-demo.gif`: sanitized animated terminal demo for the GitHub README
+- `assets/social-preview.png`: GitHub social preview image prepared for manual upload in repository settings
 - `flowfetch.spec`: PyInstaller spec for the Linux single-file build
 - `release/README.txt`: short instructions bundled with the binary package
 - `release/v0.1.0.md`: notes for the first public GitHub Release
 - `README.md`: English project documentation
 - `README.zh-CN.md`: Simplified Chinese project documentation
 - `scripts/generate_demo_gif.py`: script that regenerates the sanitized demo GIF
+- `scripts/generate_social_preview.py`: script that regenerates the social preview PNG
 
 ## License
 

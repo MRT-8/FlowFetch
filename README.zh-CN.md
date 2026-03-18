@@ -34,7 +34,7 @@
 ## 脱敏演示
 
 <p align="center">
-  <img src="assets/flowfetch-demo.gif" alt="脱敏后的 FlowFetch 终端演示，展示一个虚构的下载和解压流程" width="960">
+  <img src="assets/flowfetch-demo.gif" alt="脱敏后的 FlowFetch 终端演示，展示一个虚构的下载和解压流程" width="840">
 </p>
 
 这个动画由脚本生成，只使用虚构的链接、文件名和本地路径，不是从真实机器直接录屏，因此不会带入用户名、主机名或真实目录信息。
@@ -264,12 +264,14 @@ sudo pacman -S curl wget unzip tar gzip p7zip
 - `requirements.txt`：面向 `pip` 的简洁依赖列表
 - `assets/flowfetch-terminal.svg`：仓库首页和 Release 说明使用的终端效果图
 - `assets/flowfetch-demo.gif`：用于 GitHub README 的脱敏终端动画演示
+- `assets/social-preview.png`：为 GitHub Social Preview 准备的封面图
 - `flowfetch.spec`：Linux 单文件构建的 PyInstaller 配置
 - `release/README.txt`：打包后二进制附带的简短使用说明
 - `release/v0.1.0.md`：首个公开 GitHub Release 的说明
 - `README.md`：英文主文档
 - `README.zh-CN.md`：简体中文文档
 - `scripts/generate_demo_gif.py`：重新生成脱敏 GIF 演示的脚本
+- `scripts/generate_social_preview.py`：重新生成 Social Preview 封面图的脚本
 
 ## 许可证
 

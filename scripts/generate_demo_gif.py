@@ -15,6 +15,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 WIDTH = 1200
 HEIGHT = 760
+EXPORT_WIDTH = 840
+EXPORT_HEIGHT = 532
 OUT_PATH = Path("assets/flowfetch-demo.gif")
 
 BG = "#0B1220"
@@ -250,10 +252,18 @@ def build_frames() -> Tuple[List[Image.Image], List[int]]:
 def main() -> None:
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     frames, durations = build_frames()
-    frames[0].save(
+    export_frames = [
+        frame.resize((EXPORT_WIDTH, EXPORT_HEIGHT), Image.Resampling.LANCZOS).quantize(
+            colors=64,
+            method=Image.Quantize.MEDIANCUT,
+            dither=Image.Dither.NONE,
+        )
+        for frame in frames
+    ]
+    export_frames[0].save(
         OUT_PATH,
         save_all=True,
-        append_images=frames[1:],
+        append_images=export_frames[1:],
         optimize=True,
         duration=durations,
         loop=0,
