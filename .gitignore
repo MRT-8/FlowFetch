@@ -1,0 +1,31 @@
+# Local planning / internal docs
+DEVELOPMENT.md
+
+# Virtual environments
+.venv/
+venv/
+
+# Test fixtures and local run artifacts
+test_artifacts/
+
+# Python cache / build outputs
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
