@@ -716,6 +716,8 @@ def resolve_temp_path(output_path: Path) -> Path:
     return output_path.with_name(f"{output_path.name}.part")
 
 
+# TODO(flowfetch-v2.0): support resumable downloads from existing .part files.
+# Implementation notes for maintainers live in docs/TODO-v2.0.md.
 def command_exists(command: str) -> bool:
     return shutil.which(command) is not None
 

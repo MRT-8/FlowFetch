@@ -20,41 +20,12 @@
     <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-3776AB">
     <img alt="Platform" src="https://img.shields.io/badge/platform-Linux-111827">
   </p>
-  <p>
-    <a href="https://github.com/MRT-8/FlowFetch/releases/latest/download/flowfetch-linux-x86_64.tar.gz">
-      <img alt="Get Linux Binary" src="https://img.shields.io/badge/Get%20Linux%20Binary-Download%20Now-34D399?style=for-the-badge">
-    </a>
-    <a href="https://github.com/MRT-8/FlowFetch/releases/latest">
-      <img alt="Open Latest Release" src="https://img.shields.io/badge/Open%20Latest%20Release-GitHub-0EA5E9?style=for-the-badge">
-    </a>
-    <a href="#从源码运行">
-      <img alt="Run From Source" src="https://img.shields.io/badge/Run%20From%20Source-uv%20workflow-111827?style=for-the-badge">
-    </a>
-  </p>
 </div>
 
 [快速开始](#快速开始) • [使用安装包](#使用-linux-安装包) • [源码运行](#从源码运行) • [命令示例](#常见示例) • [发布说明](#发布说明)
 
 > [!TIP]
 > 如果你只是想直接使用 FlowFetch，优先下载 GitHub Releases 里的 `flowfetch-linux-x86_64.tar.gz`。解压后运行 `./flowfetch` 即可，不需要安装 Python，也不需要执行 `pip install`。
-
-## 从这里开始
-
-| 如果你想要... | 直接这样做 |
-| --- | --- |
-| 不装 Python 直接运行 FlowFetch | 下载[最新 Linux 二进制包](https://github.com/MRT-8/FlowFetch/releases/latest/download/flowfetch-linux-x86_64.tar.gz) |
-| 查看打包发布内容 | 打开[最新 Release 页面](https://github.com/MRT-8/FlowFetch/releases/latest) |
-| 从源码运行并使用锁定依赖 | 跳到 [从源码运行](#从源码运行) 并执行 `uv sync` |
-
-对终端用户来说，最快的开始方式是：
-
-```bash
-curl -LO https://github.com/MRT-8/FlowFetch/releases/latest/download/flowfetch-linux-x86_64.tar.gz
-tar -xzf flowfetch-linux-x86_64.tar.gz
-cd flowfetch-linux-x86_64
-chmod +x flowfetch
-./flowfetch --help
-```
 
 ## 终端效果预览
 
