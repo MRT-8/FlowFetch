@@ -199,15 +199,15 @@ uv run flowfetch [options] [url]
 - 标准库支持的压缩包默认走 Python 解压，并包含路径安全检查。
 - 不支持或体积较大的压缩包会在可用时切换到系统解压工具。
 
-## 未来的 Linux 单文件发布
+## Linux 单文件发行版
 
-当前仓库提供的是源码版本。
+FlowFetch 同时支持通过 GitHub Releases 分发 Linux `x86_64` 单文件版本。
 
-后续计划提供 Linux 单文件发行版，发布形式固定为：
+发布资产名称固定为：
 
 - `flowfetch-linux-x86_64.tar.gz`
 
-用户预计会这样使用：
+下载后可这样使用：
 
 ```bash
 tar -xzf flowfetch-linux-x86_64.tar.gz
@@ -217,7 +217,7 @@ chmod +x flowfetch
 ./flowfetch https://example.com/demo.zip
 ```
 
-这个发行版的目标是让用户无需提前安装 Python 依赖，就能直接下载并运行。
+这个发行版适合希望“下载即运行”的用户，不需要提前安装 Python 依赖，也不需要执行 `pip install`。
 
 ## 仓库结构
 

@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          python-version: "3.9"
+
+      - name: Sync project with release dependencies
+        run: uv sync --extra release --frozen
+
+      - name: Build one-file executable
+        run: uv run pyinstaller --clean --noconfirm flowfetch.spec
+
+      - name: Smoke test help and version
+        run: |
+          ./dist/flowfetch --help > /tmp/flowfetch-help.txt
+          grep -q "usage: flowfetch" /tmp/flowfetch-help.txt
+          ./dist/flowfetch --version | grep -q "^flowfetch "
+
+      - name: Smoke test exit codes
+        run: |
+          set +e
+          ./dist/flowfetch ftp://example.com/file.zip >/tmp/invalid-url.txt 2>&1
+          invalid_status=$?
+          ./dist/flowfetch >/tmp/no-url.txt 2>&1
+          no_url_status=$?
+          set -e
+          test "$invalid_status" -eq 4
+          test "$no_url_status" -eq 2
+
+      - name: Assemble release archive
+        run: |
+          archive_dir="flowfetch-linux-x86_64"
+          rm -rf "$archive_dir"
+          mkdir -p "$archive_dir"
+          cp dist/flowfetch "$archive_dir/flowfetch"
+          cp LICENSE "$archive_dir/LICENSE"
+          cp release/README.txt "$archive_dir/README.txt"
+          chmod +x "$archive_dir/flowfetch"
+          tar -czf flowfetch-linux-x86_64.tar.gz "$archive_dir"
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flowfetch-linux-x86_64
+          path: flowfetch-linux-x86_64.tar.gz
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: flowfetch-linux-x86_64.tar.gz

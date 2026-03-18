@@ -199,15 +199,15 @@ uv run flowfetch [options] [url]
 - Supported archives use Python extraction by default, with safety checks against path traversal.
 - Unsupported or large archive cases can use system extractors when available.
 
-## Planned Portable Linux Release
+## Linux Release Binary
 
-The repository currently provides the source version.
+FlowFetch also supports a GitHub Release distribution for Linux `x86_64`.
 
-A future release will also provide a Linux single-file distribution in the form of:
+Release asset:
 
 - `flowfetch-linux-x86_64.tar.gz`
 
-The expected user flow for that release is:
+Usage after downloading the asset:
 
 ```bash
 tar -xzf flowfetch-linux-x86_64.tar.gz
@@ -217,7 +217,7 @@ chmod +x flowfetch
 ./flowfetch https://example.com/demo.zip
 ```
 
-That portable release is meant for users who want a more "download and run" experience without setting up Python dependencies themselves.
+This Release binary is intended for users who want a direct "download and run" path without installing Python dependencies or running `pip install`.
 
 ## Repository Layout
 

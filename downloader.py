@@ -389,6 +389,13 @@ def parse_content_disposition_filename(value: str | None) -> str | None:
     return None
 
 
+def resolve_program_name() -> str:
+    argv0 = Path(sys.argv[0]).name.strip() if sys.argv and sys.argv[0] else ""
+    if argv0 in {"", "-c", "__main__.py"}:
+        return "flowfetch"
+    return argv0
+
+
 def infer_filename_from_url(url: str) -> str:
     parsed = urlparse(url)
     candidate = Path(unquote(parsed.path)).name
@@ -488,7 +495,7 @@ def fetch_file_metadata(
 
 def build_parser() -> FlowFetchArgumentParser:
     parser = FlowFetchArgumentParser(
-        prog="downloader.py",
+        prog=resolve_program_name(),
         description="FlowFetch: 面向 Linux 的终端下载与按需解压工具",
     )
     parser.add_argument("url", nargs="?", help="下载链接；不提供时进入交互模式")
