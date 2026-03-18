@@ -1,39 +1,173 @@
-# FlowFetch
+<div align="center">
+  <h1>FlowFetch</h1>
+  <p><strong>Linux-first CLI downloader for direct file URLs.</strong></p>
+  <p>Validate links, stream downloads with progress, and safely extract common archives from a single command.</p>
+  <p>
+    <a href="README.zh-CN.md">简体中文</a> •
+    <a href="https://github.com/MRT-8/FlowFetch/releases">Releases</a> •
+    <a href="https://github.com/MRT-8/FlowFetch/releases/latest">Latest Binary</a>
+  </p>
+  <p>
+    <a href="https://github.com/MRT-8/FlowFetch/releases">
+      <img alt="GitHub Release" src="https://img.shields.io/github/v/release/MRT-8/FlowFetch?display_name=tag&label=release">
+    </a>
+    <a href="https://github.com/MRT-8/FlowFetch/actions/workflows/release.yml">
+      <img alt="Release Workflow" src="https://github.com/MRT-8/FlowFetch/actions/workflows/release.yml/badge.svg">
+    </a>
+    <a href="LICENSE">
+      <img alt="License" src="https://img.shields.io/github/license/MRT-8/FlowFetch">
+    </a>
+    <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-3776AB">
+    <img alt="Platform" src="https://img.shields.io/badge/platform-Linux-111827">
+  </p>
+</div>
 
-[简体中文](README.zh-CN.md)
+[Quick Start](#quick-start) • [Release Package](#use-the-linux-release-package) • [Source Workflow](#run-from-source) • [Examples](#common-examples) • [Release Notes](#release-notes)
 
-FlowFetch is a Linux-first terminal downloader for direct file URLs. It validates HTTP or HTTPS links, streams downloads with clear progress output, detects common archive formats, and can extract them safely on demand.
-
-The project is intentionally lightweight:
-
-- Python-first by default for downloading and extraction
-- Friendly interactive flow with low input overhead
-- Optional fallback to system tools for large files or special archive formats
-- Safer extraction checks to block path traversal attempts
+> [!TIP]
+> End users should start with the GitHub Release package. Download `flowfetch-linux-x86_64.tar.gz`, extract it, and run `./flowfetch` without installing Python or running `pip install`.
 
 ## Why FlowFetch
 
-FlowFetch is designed for the common "paste a file URL and get the result locally" workflow:
+FlowFetch is built for the common "paste a file URL and get the result locally" workflow, without turning a simple download into a setup project.
 
-- Download regular files from `http://` and `https://` links
-- Show progress, speed, total size, and ETA during download
-- Save to the current directory or a custom output directory
-- Detect archives such as `zip`, `tar.gz`, and `gz`
-- Ask whether to extract, or skip extraction in non-interactive mode
-- Fall back to `curl`, `wget`, `unzip`, `tar`, or `7z` when the situation calls for them
+| Need | What FlowFetch does |
+| --- | --- |
+| Direct file downloads | Accepts `http://` and `https://` URLs and validates them before download |
+| Clean terminal feedback | Shows filename, size, progress, speed, and ETA |
+| Safer file handling | Writes to `.part` first, validates, then renames into place |
+| Archive-friendly flow | Detects common archive formats and can extract them safely |
+| Scriptable behavior | Uses stable exit codes and explicit CLI options |
+| Flexible fallback path | Can switch to `curl`, `wget`, `tar`, `unzip`, `gzip`, and `7z` when needed |
 
-## Features
+## Quick Start
 
-- Interactive mode and direct CLI mode
-- Metadata probing before download
-- Automatic filename detection from headers or URL
-- Temporary `.part` files during download to avoid half-finished target files
-- Automatic rename strategy for name conflicts
-- Retry handling for download failures
-- Safe extraction checks for supported archive formats
-- Clear exit codes for automation and scripting
+| Workflow | Best for | Python required | First step |
+| --- | --- | --- | --- |
+| Release package | End users who want a ready-to-run binary | No | Download the latest `flowfetch-linux-x86_64.tar.gz` from Releases |
+| `uv` source workflow | Contributors and users running from source | Yes | `uv sync` |
+| `pip` source workflow | Compatibility with a plain Python environment | Yes | `pip install -r requirements.txt` |
 
-## Supported Formats
+## Use the Linux Release Package
+
+This is the recommended path if you want the packaged binary instead of a source checkout.
+
+1. Download the latest `flowfetch-linux-x86_64.tar.gz` from [GitHub Releases](https://github.com/MRT-8/FlowFetch/releases/latest).
+2. Extract the archive and enter the folder.
+3. Run `flowfetch` directly, or install it system-wide.
+
+Run it directly:
+
+```bash
+tar -xzf flowfetch-linux-x86_64.tar.gz
+cd flowfetch-linux-x86_64
+chmod +x flowfetch
+./flowfetch --help
+./flowfetch https://example.com/demo.zip
+```
+
+Optional system-wide install:
+
+```bash
+sudo install -m 0755 flowfetch /usr/local/bin/flowfetch
+flowfetch --help
+flowfetch https://example.com/demo.zip
+```
+
+> [!NOTE]
+> The release package contains a single Linux `x86_64` executable plus `LICENSE` and a short `README.txt`. It does not require Python, `uv`, or `pip install`.
+
+## Run From Source
+
+Preferred `uv` workflow:
+
+```bash
+uv sync
+uv run flowfetch --help
+uv run flowfetch https://example.com/demo.zip
+```
+
+Direct script entrypoint:
+
+```bash
+uv run downloader.py --help
+python downloader.py https://example.com/demo.zip
+```
+
+Plain `pip` fallback:
+
+```bash
+pip install -r requirements.txt
+python downloader.py --help
+```
+
+## Common Examples
+
+Download a file:
+
+```bash
+flowfetch https://example.com/demo.zip
+```
+
+Download to a custom directory and extract automatically:
+
+```bash
+flowfetch --output-dir ./downloads --extract https://example.com/demo.tar.gz
+```
+
+Force the Python downloader:
+
+```bash
+flowfetch --downloader httpx https://example.com/file.bin
+```
+
+Force the system extractor:
+
+```bash
+flowfetch --extractor system --extract https://example.com/demo.7z
+```
+
+Run in interactive mode:
+
+```bash
+flowfetch
+```
+
+## Key CLI Options
+
+```bash
+flowfetch [options] [url]
+```
+
+- `-o, --output-dir`: target download directory
+- `--filename`: force the saved filename
+- `--downloader auto|httpx|curl|wget`: choose the downloader
+- `--extractor auto|python|system`: choose the extraction strategy
+- `--extract`: always extract archives after download
+- `--no-extract`: never extract archives after download
+- `--overwrite`: allow overwriting existing targets
+- `--rename`: auto-rename conflicts
+- `--download-threshold`: downloader switch threshold such as `1g`
+- `--extract-threshold`: extractor switch threshold
+- `--retry`: number of download retries
+- `--timeout`: shared connect/read timeout
+- `--keep-partial`: keep `.part` files on failure
+- `--delete-partial`: remove `.part` files on failure
+- `--no-fallback`: disable automatic fallback paths
+- `--yes`: accept recommended prompts automatically
+- `--verbose`: print more detailed error information
+
+## How FlowFetch Behaves
+
+- It probes metadata before downloading when possible so it can show a filename and expected size.
+- Downloads are written to a `.part` file first, then renamed after validation succeeds.
+- Small and normal-sized files use the Python downloader by default.
+- Very large files can switch to `curl` or `wget` when available.
+- Supported archives use Python extraction by default, with safety checks against path traversal.
+- Unsupported or large archive cases can use system extractors when available.
+
+<details>
+<summary><strong>Supported Formats</strong></summary>
 
 Python standard library extraction currently supports:
 
@@ -49,44 +183,10 @@ Enhanced support via system tools:
 
 - `7z` with `7z` or `7zz`
 
-## Installation From Source
+</details>
 
-FlowFetch currently ships as source code in this repository.
-
-Requirements:
-
-- Linux
-- Python 3.9+
-- `uv` for the preferred workflow, or `pip` as a fallback
-
-Preferred setup with `uv`:
-
-```bash
-uv sync
-uv run flowfetch --help
-```
-
-Example usage with `uv`:
-
-```bash
-uv run flowfetch https://example.com/demo.zip
-uv run downloader.py --help
-```
-
-Alternative setup with `pip`:
-
-```bash
-pip install -r requirements.txt
-python downloader.py --help
-```
-
-Important notes:
-
-- The local `.venv` used during development is not part of the repository and is not meant to be distributed.
-- Users cloning the repository should install dependencies locally instead of reusing a checked-in virtual environment.
-- After `uv sync`, the project exposes a `flowfetch` CLI command through the project entry point.
-
-## Optional System Tools
+<details>
+<summary><strong>Optional System Tools</strong></summary>
 
 FlowFetch does not require system tools for its default path, but it can use them as an enhancement when:
 
@@ -119,63 +219,10 @@ sudo dnf install -y curl wget unzip tar gzip p7zip p7zip-plugins
 sudo pacman -S curl wget unzip tar gzip p7zip
 ```
 
-## Usage
+</details>
 
-Interactive mode:
-
-```bash
-uv run flowfetch
-```
-
-Download a file directly:
-
-```bash
-uv run flowfetch https://example.com/demo.zip
-```
-
-Download to a custom directory and extract automatically:
-
-```bash
-uv run flowfetch --output-dir ./downloads --extract https://example.com/demo.tar.gz
-```
-
-Force the Python downloader:
-
-```bash
-uv run flowfetch --downloader httpx https://example.com/file.bin
-```
-
-Force the system extractor:
-
-```bash
-uv run flowfetch --extractor system --extract https://example.com/demo.7z
-```
-
-## Key CLI Options
-
-```bash
-uv run flowfetch [options] [url]
-```
-
-- `-o, --output-dir`: target download directory
-- `--filename`: force the saved filename
-- `--downloader auto|httpx|curl|wget`: choose the downloader
-- `--extractor auto|python|system`: choose the extraction strategy
-- `--extract`: always extract archives after download
-- `--no-extract`: never extract archives after download
-- `--overwrite`: allow overwriting existing targets
-- `--rename`: auto-rename conflicts
-- `--download-threshold`: downloader switch threshold such as `1g`
-- `--extract-threshold`: extractor switch threshold
-- `--retry`: number of download retries
-- `--timeout`: shared connect/read timeout
-- `--keep-partial`: keep `.part` files on failure
-- `--delete-partial`: remove `.part` files on failure
-- `--no-fallback`: disable automatic fallback paths
-- `--yes`: accept recommended prompts automatically
-- `--verbose`: print more detailed error information
-
-## Exit Codes
+<details>
+<summary><strong>Exit Codes</strong></summary>
 
 - `0`: success
 - `2`: invalid arguments
@@ -190,38 +237,12 @@ uv run flowfetch [options] [url]
 - `11`: unsupported format
 - `12`: permission denied
 
-## How FlowFetch Behaves
+</details>
 
-- FlowFetch tries to fetch metadata before downloading so it can show a filename and expected size.
-- Downloads are written to a `.part` file first, then renamed after validation succeeds.
-- Small and normal-sized files use the Python downloader by default.
-- Very large files can switch to `curl` or `wget` when available.
-- Supported archives use Python extraction by default, with safety checks against path traversal.
-- Unsupported or large archive cases can use system extractors when available.
-
-## Linux Release Binary
-
-FlowFetch also supports a GitHub Release distribution for Linux `x86_64`.
-
-Release asset:
-
-- `flowfetch-linux-x86_64.tar.gz`
-
-Usage after downloading the asset:
-
-```bash
-tar -xzf flowfetch-linux-x86_64.tar.gz
-cd flowfetch-linux-x86_64
-chmod +x flowfetch
-./flowfetch --help
-./flowfetch https://example.com/demo.zip
-```
-
-This Release binary is intended for users who want a direct "download and run" path without installing Python dependencies or running `pip install`.
-
-Detailed release notes for the first public build:
+## Release Notes
 
 - [`release/v0.1.0.md`](release/v0.1.0.md)
+- [GitHub Release v0.1.0](https://github.com/MRT-8/FlowFetch/releases/tag/v0.1.0)
 
 ## Repository Layout
 
@@ -229,6 +250,8 @@ Detailed release notes for the first public build:
 - `pyproject.toml`: project metadata and `flowfetch` console entrypoint
 - `uv.lock`: locked runtime dependency set for the `uv` workflow
 - `requirements.txt`: lightweight `pip` dependency list
+- `flowfetch.spec`: PyInstaller spec for the Linux single-file build
+- `release/README.txt`: short instructions bundled with the binary package
 - `release/v0.1.0.md`: notes for the first public GitHub Release
 - `README.md`: English project documentation
 - `README.zh-CN.md`: Simplified Chinese project documentation
